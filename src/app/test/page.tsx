@@ -19,6 +19,7 @@ export default function Code() {
 			<div onKeyDown={(e) => handleInput(e)} className="col-start-auto row-start-auto col-span-12 row-span-11 bg-transparent overflow-scroll" contentEditable>
 				<span className="text-red-900">Wally</span> is a programmer.
 			</div>
+
 		</div>
 	)
 }

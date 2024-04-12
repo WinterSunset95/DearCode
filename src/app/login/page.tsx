@@ -49,7 +49,7 @@ export default function Login() {
 				<input value={password} onChange={(e) => setPassword(e.target.value)} className="p-4 bg-transparent border border-white" type="password" placeholder="Password" required></input>
 				<input className="px-4 py-2 bg-white text-black border-none" type="submit" value="Login"></input>
 				<div>
-					<span>Don't have an account? </span>
+					<span>No account? </span>
 					<a className="text-blue-800 hover:text-red-800" href="/signup">Signup</a>
 				</div>
 			</form>

@@ -5,11 +5,24 @@ import { useRouter } from "next/navigation";
 import styles from "./home.module.css"
 
 export default function Header() {
-	const uname = localStorage.getItem('DearCodeUname');
-	const loggedIn = localStorage.getItem('DearCodeStatus');
+	const [uname, setUname] = useState('');
+	const [loggedIn, setLoggedIn] = useState('');
 	const router = useRouter();
 
 	const [nav, setNav] = useState(false);
+
+	useEffect(() => {
+		let uname = localStorage.getItem('DearCodeUname');
+		let loggedIn = localStorage.getItem('DearCodeStatus');
+		if (uname && loggedIn) {
+			setUname(uname);
+			setLoggedIn('');
+		} else {
+			setUname('');
+			setLoggedIn('');
+			console.log('No user logged in');
+		}
+	}, [])
 
 	const UserStatus = () => {
 		if (uname && loggedIn) {
