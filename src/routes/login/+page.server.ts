@@ -29,7 +29,6 @@ export const actions = {
 					message: 'Login successful'
 				}
 
-				event.cookies.set("DearCodeUser", `${uname}`, { path: "/" })
 				return data;
 
 			}
