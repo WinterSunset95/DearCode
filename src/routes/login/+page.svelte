@@ -1,13 +1,46 @@
-<script></script>
+<script lang="ts">
+// Imports
+import { goto } from '$app/navigation';
+import { onMount } from 'svelte';
+
+// Server values
+export let form;
+
+// Code starts here
+let message:String;
+let username:String = ""
+
+onMount(() => {
+	// Check if the form was submitted successfully
+	if (form?.status == "Success") {
+		window.localStorage.setItem("DearCodeUser", form?.user)
+		window.localStorage.setItem("DearCodeLogin", "true")
+		alert(`Welcome back, ${username}`)
+		goto("/")
+	} else {
+		message = form?.message;
+	}
+
+	console.log(message)
+})
+
+</script>
+
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
 
 <main>
 	<h1>Login</h1>
-	<form>
-		<input type="text" id="username" name="username" placeholder="Username" required>
+	<form method="POST">
+		{#if message}
+			<span class="error">{message}</span>
+		{/if}
+		<input bind:value={username} type="text" id="username" name="username" placeholder="Username" required>
 		<input type="password" id="password" name="password" placeholder="Password" required>
 		<input type="submit" value="Login">
 		<div>
-			Already have an account? <a href="/signup">Sign up</a>
+			Don't have an account? <a href="/signup">Sign up</a>
 		</div>
 	</form>
 </main>
@@ -45,6 +78,12 @@ input {
 }
 
 a {
+	color: var(--buttons);
+}
+
+.error {
+	width: 100%;
+	text-align: center;
 	color: var(--buttons);
 }
 

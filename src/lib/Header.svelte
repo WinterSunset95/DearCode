@@ -1,16 +1,21 @@
-<script>
-let userName = "Guest"
-let loginState = false
+<script lang="ts">
+// Imports
+
+// Props
+export let dearCodeUser:string | null = "Guest";
+export let dearCodeLogin = false;
+
+// Code starts here
 </script>
 
 <nav>
-	<h1>{userName}</h1>
+	<h1><a href="/">{dearCodeUser}</a></h1>
 
 	<ul>
 		<li><a href="#">About</a></li>
 		<li><a href="#">Contacts</a></li>
-		<li><a href="#">Code</a></li>
-		{#if loginState}
+		<li><a href="/code">Code</a></li>
+		{#if dearCodeLogin}
 			<li><a href="/dashboard">Dashboard</a></li>
 		{:else}
 			<li><a href="/login">Login</a></li>
