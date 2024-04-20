@@ -18,6 +18,8 @@
 		"@neoconfetti/svelte": "^1.0.0",
 		"@playwright/test": "^1.28.1",
 		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-node": "^5.0.1",
+		"@sveltejs/adapter-static": "^3.0.1",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "^8.56.0",
@@ -26,8 +28,11 @@
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
+		"express": "^4.19.2",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
+		"socket.io": "^4.7.5",
+		"socket.io-client": "^4.7.5",
 		"svelte": "^4.2.7",
 		"svelte-check": "^3.6.0",
 		"tslib": "^2.4.1",
@@ -37,8 +42,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@vercel/postgres": "^0.8.0",
-		"socket.io": "^4.7.5",
-		"socket.io-client": "^4.7.5"
+		"@vercel/postgres": "^0.8.0"
 	}
 }
