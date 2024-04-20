@@ -1,7 +1,7 @@
 <script lang="ts">
 
 // Imports
-import { io } from "$lib/socketio"
+import ioClient from 'socket.io-client';
 import { onMount } from "svelte";
 
 // Server values
@@ -9,6 +9,24 @@ import { onMount } from "svelte";
 // Code
 
 onMount(() => {
+	// Check if localhost or render.com
+	function checkHost() {
+		const host = window.location.host
+		if (host.includes('localhost')) {
+			return 'http://localhost:3000'
+		} else {
+			return 'https://dear-code-backend.onrender.com'
+		}
+	}
+
+	const ENDPOINT = checkHost()
+	//const ENDPOINT = 'http://localhost:3000'
+	//const ENDPOINT = 'https://dear-code-backend.onrender.com'
+
+	const io = ioClient(ENDPOINT, {
+		transports: ['websocket', 'polling', 'flashsocket']
+	})
+
 	io.on('message', (message:any) => {
 		console.log(message)
 	})
