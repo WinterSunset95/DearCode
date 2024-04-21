@@ -3,7 +3,7 @@
 import Header from "$lib/Header.svelte";
 import Footer from "$lib/Footer.svelte";
 import "$lib/global.css"
-	import {onMount} from "svelte";
+import {onMount} from "svelte";
 
 // Server data
 
@@ -27,6 +27,9 @@ onMount(() => {
 
 </script>
 
-<Header dearCodeUser={data?.username} dearCodeLogin={data?.loginstate} />
+{#key data.loginstate}
+	<Header dearCodeUser={data?.username} dearCodeLogin={data?.loginstate} />
+{/key}
+
 <slot />
 <Footer />

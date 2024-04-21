@@ -2,7 +2,7 @@
 	"name": "dear-code",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "nodemon src/server/index.js",
+		"dev": "vite --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",

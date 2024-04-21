@@ -5,16 +5,22 @@ const pool = new Pool({
 	connectionString: process.env.POSTGRES_URL
 })
 
-const initialiseDatabase = async () => {
+export const initialiseDatabase = async () => {
 	try {
 		const response = await pool.query('select * from users')
-		console.log(response)
+		console.log("Database is up")
 	} catch {
-		console.log("Table users not found")
+		// So we don't have a 'users' table...
+		// Let's create one
+		try {
+			console.log("Users table not found, creating.....")
+			const response = await pool.query('create table if not exists users (id serial primary key, username varchar(255), password varchar(255), created_at timestamp)')
+			console.log(response)
+		} catch {
+			console.log("Error creating users table")
+		}
 	}
 }
-
-initialiseDatabase();
 
 export const query = async (text, params) => {
 	const start = Date.now()

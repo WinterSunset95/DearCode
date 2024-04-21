@@ -3,27 +3,22 @@
 import { goto } from "$app/navigation";
 import { onMount } from "svelte";
 
-// Server data
-export let form:{
-	status:String, message:String
-};
-
 // Code
 let loginstate:boolean = false;
 
-$: console.log(loginstate)
+const logout = async () => {
+	window.localStorage.setItem("DearCodeUser", "Guest");
+	window.localStorage.setItem("DearCodeLogin", "false");
+	alert("Logged out!!");
+	goto("/login");
+}
+
 onMount(() => {
 
 	let login = window.localStorage.getItem("DearCodeLogin") || "false"
 	if (login == "true") {
 		loginstate = true;
 	} else {
-		loginstate = false;
-	}
-
-	if (form?.status == "Success"){
-		window.localStorage.setItem("DearCodeUser", "Guest");
-		window.localStorage.setItem("DearCodeLogin", "false")
 		loginstate = false;
 	}
 
@@ -41,9 +36,7 @@ onMount(() => {
 	</h1>
 
 	{#if loginstate}
-		<form method="POST" action="?/logout">
-			<input type="submit" value="Logout">
-		</form>
+		<input on:click={logout} type="button" value="Logout" />
 	{/if}
 
 </main>
