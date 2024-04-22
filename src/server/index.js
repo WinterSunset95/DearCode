@@ -32,7 +32,6 @@ app.get('/api/users', async (req, res) => {
 app.post('/api/signup', async (req, res) => {
 	const result = await signupUser(req, res)
 	console.log(result)
-
 })
 
 app.post('/api/login', async (req, res) => {
@@ -43,9 +42,11 @@ app.post('/api/login', async (req, res) => {
 io.on('connection', (socket) => {
 	console.log("New connection: " + socket.id)
 	socket.emit('message', "Hello from the server!")
+
 	socket.on('input', (data) =>{
 		io.emit('input', data)
 	})
+
 	socket.on('delete', (data) =>{
 		io.emit('delete', data)
 	})

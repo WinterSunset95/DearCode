@@ -1,6 +1,9 @@
 <script lang="ts">
 // Imports
+import Header from '$lib/Header.svelte';
+import Footer from '$lib/Footer.svelte';
 import { goto } from '$app/navigation';
+import { onMount } from 'svelte';
 
 // Code starts here
 let message:String;
@@ -23,19 +26,31 @@ const loginUser = async () => {
 		body: JSON.stringify(reqBody)
 	})
 
-	const data = await response.json()
+	try {
+		const data = await response.json()
 
-	if (data.status === "Success") {
-		window.localStorage.setItem("DearCodeUser", username)
-		window.localStorage.setItem("DearCodeLogin", "true")
-		alert(`Welcome back, ${username}`)
-		goto("/")
-	} else {
-		message = data.message
+		if (data.status === "Success") {
+			window.localStorage.setItem("DearCodeUser", username)
+			window.localStorage.setItem("DearCodeLogin", "true")
+			alert(`Welcome back, ${username}`)
+			goto("/")
+		} else {
+			message = data.message
+		}
+		console.log(data)
+		loading = false
+	} catch {
+		message = "An error occurred"
+		loading = false
 	}
-	console.log(data)
-	loading = false
 }
+
+onMount(() => {
+	let login = window.localStorage.getItem("DearCodeLogin") || "false"
+	if (login == "true") {
+		goto("/")
+	}
+})
 
 </script>
 
@@ -43,8 +58,10 @@ const loginUser = async () => {
 	<title>Login</title>
 </svelte:head>
 
+<Header />
+
 <main>
-	<h1>Login</h1>
+	<h1>Dear Code</h1>
 	<form action="/api/login" on:submit|preventDefault={loginUser}>
 		{#if message}
 			<span class="error">{message}</span>
@@ -63,6 +80,8 @@ const loginUser = async () => {
 		</div>
 	{/if}
 </main>
+
+<Footer />
 
 <style>
 

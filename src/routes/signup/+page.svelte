@@ -1,12 +1,11 @@
 <script lang="ts">
 // Imports
+import Header from '$lib/Header.svelte';
+import Footer from '$lib/Footer.svelte';
 import { goto } from '$app/navigation';
+import { onMount } from 'svelte';
 
 // Server values
-export let form:{
-	status:String,
-	message:String
-};
 
 // Code starts here
 let message:String;
@@ -46,11 +45,20 @@ const submitForm = async () => {
 	loading = false;
 }
 
+onMount(() => {
+	let login = window.localStorage.getItem("DearCodeLogin") || "false";
+	if (login == "true") {
+		goto("/");
+	}
+})
+
 </script>
 
 <svelte:head>
 	<title>Sign Up</title>
 </svelte:head>
+
+<Header />
 
 <main>
 	<h1>Sign up</h1>
@@ -73,6 +81,8 @@ const submitForm = async () => {
 		</div>
 	{/if}
 </main>
+
+<Footer />
 
 <style>
 

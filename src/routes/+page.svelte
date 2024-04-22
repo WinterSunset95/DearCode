@@ -2,6 +2,8 @@
 // Imports
 import { goto } from "$app/navigation";
 import { onMount } from "svelte";
+import Header from "$lib/Header.svelte";
+import Footer from "$lib/Footer.svelte";
 
 // Code
 let loginstate:boolean = false;
@@ -10,7 +12,7 @@ const logout = async () => {
 	window.localStorage.setItem("DearCodeUser", "Guest");
 	window.localStorage.setItem("DearCodeLogin", "false");
 	alert("Logged out!!");
-	goto("/login");
+	goto("/");
 }
 
 onMount(() => {
@@ -30,6 +32,8 @@ onMount(() => {
 	<title>Dear Code</title>
 </svelte:head>
 
+<Header />
+
 <main>
 	<h1>
 		Hello world this is my first svelte page
@@ -38,8 +42,9 @@ onMount(() => {
 	{#if loginstate}
 		<input on:click={logout} type="button" value="Logout" />
 	{/if}
-
 </main>
+
+<Footer />
 
 <style>
 
@@ -52,7 +57,6 @@ main {
 	justify-content: center;
 	align-items: center;
 	gap: 1rem;
-
 }
 
 input {

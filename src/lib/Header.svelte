@@ -1,11 +1,24 @@
 <script lang="ts">
+import {onMount} from "svelte";
+
 // Imports
 
 // Props
-export let dearCodeUser:string | null = "Guest";
-export let dearCodeLogin = false;
+let dearCodeUser:string | null = "Guest";
+let dearCodeLogin = false;
 
 // Code starts here
+onMount(() => {
+	let user = window.localStorage.getItem("DearCodeUser") || "Guest";
+	let login = window.localStorage.getItem("DearCodeLogin") || "false";
+	if (login == "true") {
+		dearCodeLogin = true;
+	} else {
+		dearCodeLogin = false;
+	}
+	dearCodeUser = user;
+})
+
 </script>
 
 <nav>
