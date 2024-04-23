@@ -15,6 +15,9 @@ app.use(express.urlencoded({ extended: true }))
 const server = createServer(app)
 const io = new Server(server)
 
+// List of online users
+let onlineUsers = []
+
 app.get('/healthcheck', (req, res) => {
 	res.send('OK')
 });
@@ -41,15 +44,24 @@ app.post('/api/login', async (req, res) => {
 
 io.on('connection', (socket) => {
 	console.log("New connection: " + socket.id)
-	socket.emit('message', "Hello from the server!")
+	onlineUsers.push(socket.id)
 
-	socket.on('input', (data) =>{
-		io.emit('input', data)
+	socket.emit('new-connection', `Welcome to the server! Your ID is ${socket.id}`)
+
+	socket.on('disconnect', () =>{
+		console.log("Disconnected: " + socket.id)
+		onlineUsers = onlineUsers.filter((user) => user !== socket.id)
+		console.log(onlineUsers)
 	})
 
-	socket.on('delete', (data) =>{
-		io.emit('delete', data)
+	socket.on('request-full', (data) => {
+		socket.emit('request-full', data)
 	})
+
+	socket.on('content-change', (data) => {
+		socket.broadcast.emit('content-change', data)
+	})
+
 })
 
 app.use(handler)
