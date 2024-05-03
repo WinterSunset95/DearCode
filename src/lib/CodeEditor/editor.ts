@@ -14,7 +14,6 @@
 // - onContentChange(callback: (content: string, key: string, keyCode: number, row: number, col: number) => void): void
 // - onCursorPositionChange: (line: number, column: number) => void
 // - onThemeChange: (theme: string) => void
-// - editorState: () => void
 
 // Since we are planning to use this as a form of multiplayer editor,
 // It should have a method for adding fake cursors on the editor

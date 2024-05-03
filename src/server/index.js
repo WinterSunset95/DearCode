@@ -48,7 +48,7 @@ io.on('connection', (socket) => {
 
 	socket.emit('new-connection', `Welcome to the server! Your ID is ${socket.id}`)
 
-	socket.on('disconnect', () =>{
+	socket.on('disconnect', () => {
 		console.log("Disconnected: " + socket.id)
 		onlineUsers = onlineUsers.filter((user) => user !== socket.id)
 		console.log(onlineUsers)
